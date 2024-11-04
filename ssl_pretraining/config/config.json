@@ -1,0 +1,22 @@
+{
+    "gpu": 0,
+    "experiment_path": "ssl_pretraining/ssl_pretraining_experiments",
+    "model": {
+        "name": "moco_v2",
+        "encoder": "resnet18",
+        "lr":1e-4,
+        "optimizer": "adamw",
+        "epochs": 20000
+    },
+    "dataset":{
+        "name": "hand",
+        "path": "datasets/",
+        "image_size": 256,
+        "image_channels": 3,
+        "batch_size": 4,
+        "grad_accumulation": 8,
+        "num_workers": null,
+        "pin_memory": true
+    }
+}
+

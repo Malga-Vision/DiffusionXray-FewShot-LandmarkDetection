@@ -1,0 +1,46 @@
+{
+    "gpu": 0,
+    "experiment_path": "ddpm_pretraining/ddpm_pretraining_experiments",
+    "model_for_inference": "",
+    "model": {
+        "unet": {
+            "channel_mults": [1,2,4,8],
+            "attn_res": 32,
+            "num_head_channels": 4,
+            "res_blocks": 4,
+            "self_condition": true
+        },
+        "beta_schedule": {
+            "train": {
+                "schedule": "linear",
+                "n_timestep":500,
+                "linear_start": 1e-4,
+                "linear_end": 0.02
+            },
+            "test": {
+                "schedule": "linear",
+                "n_timestep": 500,
+                "linear_start": 1e-4,
+                "linear_end": 0.02
+            }
+        },
+        "lr":1e-4,
+        "optimizer": "adamw",
+        "loss_type": "l2",
+        "use_ema": true,   
+        "iterations": 30000,
+        "freq_metrics":2000,
+        "freq_checkpoint":2000,
+        "continue_training": false
+    },
+    "dataset":{
+        "name": "cephalo",
+        "path": "datasets/",
+        "image_size": 256,
+        "image_channels": 1,
+        "batch_size": 4,
+        "grad_accumulation": 8,
+        "num_workers": null,
+        "pin_memory": true
+    }
+}

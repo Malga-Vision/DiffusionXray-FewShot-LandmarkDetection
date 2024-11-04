@@ -1,0 +1,48 @@
+{
+    "gpu": 0,
+    "experiment_path": "downstream_task/landmarks_experiments",
+    "model": {
+        "name": "ddpm",
+        "encoder": "",
+        "lr":1e-5,
+        "optimizer": "AdamW",
+        "scheduler": "ReduceLROnPlateau",
+        "loss_function": "CrossEntropyLoss",
+        "epochs": 200
+    },
+
+    "training_protocol":{
+        "apply": true,
+
+        "scratch": {
+            "apply": false,
+            "resume": false
+        },
+
+        "finetuning": {
+            "apply": true,
+            "resume": false,
+            "path": "",
+            "different_dataset": false
+        }
+    },
+
+    "inference_protocol": {
+        "apply": true,
+        "use_validation_set_for_inference": false
+    },
+
+    "dataset":{
+        "name": "chest",
+        "path": "datasets/",
+        "image_size": [256, 256],
+        "image_channels": 1,
+        "sigma": 5,
+        "batch_size": 2,
+        "grad_accumulation": 8,
+        "num_workers": null,
+        "pin_memory": true,
+        "training_samples": "all"
+    }
+}
+
