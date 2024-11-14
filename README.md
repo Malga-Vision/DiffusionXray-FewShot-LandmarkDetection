@@ -53,25 +53,18 @@ To run the experiments, follow these steps:
   ```
 
 # Download Pre-Trained models
-- Our DDPM pre-trained models
-    - chest   [download link]()
-    - cephalo [download link]()
-    - hand    [download link]()
-      
-- MocoV3 pre-trained models
-    - chest   [download link]()
-    - cephalo [download link]()
-    - hand    [download link]()
 
-- SimClr2 pre-trained models
-    - chest   [download link]()
-    - cephalo [download link]()
-    - hand    [download link]()
- 
-- Dino pre-trained models
-    - chest   [download link]()
-    - cephalo [download link]()
-    - hand    [download link]()
+All the pre-trained models used in the study are available at the following link:
+
+[https://huggingface.co/Roberto98/X-rays_Self-Supervised_Landmark_Detection](https://huggingface.co/Roberto98/X-rays_Self-Supervised_Landmark_Detection)
+
+
+In particular, it is possible to download: 
+- Our DDPM pre-trained model at 6k, 8k, and 8k iterations respectively for the Chest, Cephalometric, and Hand dataset
+- MocoV3 densenet161 model at 10k iterations for the Chest, Cephalometric, and Hand dataset
+- SimClrV2 densenet161 model at 10k iterations for the Chest, Cephalometric, and Hand dataset
+- Dino densenet161 model at 10k iterations for the Chest, Cephalometric, and Hand dataset
+
 
 # Citation
 
