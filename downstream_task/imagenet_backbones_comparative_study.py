@@ -74,7 +74,7 @@ EARLY_STOPPING = PATIENCE * 2 + 1
 NUM_CHANNELS = 1
 ONLY_INFERENCE = False
 PIN_MEMORY = True
-NUM_WORKERS = os.cpu_count()
+NUM_WORKERS = 2
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 

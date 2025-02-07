@@ -17,7 +17,6 @@ import numpy as np
 import torch
 #import tensorflow as tf
 #import tensorboard as tb
-from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
 # Custom libraries
@@ -71,7 +70,7 @@ if __name__ == "__main__":
     image_size = config["dataset"]["image_size"]
     image_channels = config["dataset"]["image_channels"]
     pin_memory = config["dataset"]["pin_memory"]
-    num_workers = os.cpu_count() if config["dataset"]["num_workers"] == None else config["dataset"]["num_workers"]
+    num_workers = 2 if config["dataset"]["num_workers"] == None else config["dataset"]["num_workers"]
 
     # Create train and test dataloaders
     train_dataloader, test_dataloader = load_data(DATASET_PATH, image_size, image_channels, batch_size, pin_memory=pin_memory, num_workers=num_workers)
@@ -90,7 +89,6 @@ if __name__ == "__main__":
 
     # Save the original model checkpoint and the ema model checkpoint
     save_model_path = generate_path(f"{PREFIX_PATH}/models/")
-    writer = SummaryWriter(f"{PREFIX_PATH}/runs")
 
     # Print config params
     print("----------------------------------------- CONFIG PARAMS -----------------------------------------")
@@ -105,7 +103,7 @@ if __name__ == "__main__":
     # Train diffusion model
     print("----------------------------------------- START TRAINING -----------------------------------------")
     print(f"Total epochs: {int(config['model']['iterations'] / (len(train_dataloader) / config['dataset']['grad_accumulation']))} | Total iterations: {config['model']['iterations']} | Iterations per epoch: {len(train_dataloader)/config['dataset']['grad_accumulation']}")
-    train_diffusion_model(config, train_dataloader, save_model_path, PREFIX_PATH, writer, device, continue_training=config["model"]["continue_training"])
+    train_diffusion_model(config, train_dataloader, save_model_path, PREFIX_PATH, device, continue_training=config["model"]["continue_training"])
 
     print("----------------------------------------- END TRAINING -----------------------------------------")
     

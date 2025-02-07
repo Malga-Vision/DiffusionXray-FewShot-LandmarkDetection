@@ -86,7 +86,7 @@ if __name__ == "__main__":
     SIGMA = config["dataset"]["sigma"]
     TRAINING_SAMPLES = config["dataset"]["training_samples"]
     PIN_MEMORY = config["dataset"]["pin_memory"]
-    NUM_WORKERS = os.cpu_count() if config["dataset"]["num_workers"] == None else config["dataset"]["num_workers"]
+    NUM_WORKERS = 2 if config["dataset"]["num_workers"] == None else config["dataset"]["num_workers"]
     
     # Model parameters
     MODEL_NAME = config["model"]["name"]

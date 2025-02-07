@@ -21,8 +21,6 @@ from torchmetrics import MeanSquaredError
 from torchmetrics.image import StructuralSimilarityIndexMeasure
 from torchmetrics.image.fid import FrechetInceptionDistance
 
-#from torch.cuda.amp import GradScaler, autocast
-
 # Custom libraries
 from utils import *
 from model.nn_blocks import *
@@ -119,7 +117,7 @@ def load_ema_model(save_model_path, device, ddpm):
 # ------------------------------------------------------------------------
 
 
-def train_diffusion_model(config, train_dataloader, save_model_path, root_path, writer, device, continue_training=False):
+def train_diffusion_model(config, train_dataloader, save_model_path, root_path, device, continue_training=False):
     # config params
     image_size = config["dataset"]["image_size"]
     channels = config["dataset"]["image_channels"]
@@ -170,7 +168,7 @@ def train_diffusion_model(config, train_dataloader, save_model_path, root_path, 
             epoch_loss = 0.0
             torch.cuda.empty_cache()
             
-            for batch_idx, data in enumerate(train_dataloader):
+            for batch_idx, data in enumerate(tqdm(train_dataloader, desc="Batch", leave=False)):
 
                 # Load data
                 x = data['image'].to(device)
@@ -210,7 +208,7 @@ def train_diffusion_model(config, train_dataloader, save_model_path, root_path, 
                     if use_ema: save_ema_model(ddpm.ema_model, epoch, n_iter, save_model_path, name="last_ema_model")
         
                 # Compute Metrics
-                if n_iter % freq_metrics == 0 and batch_idx % grad_accumulation == 0:
+                if n_iter % freq_metrics == 0 and batch_idx % grad_accumulation == 0 and n_iter != 0:
                     # Set model to eval mode
                     ddpm.model.eval()
                                             
@@ -248,10 +246,7 @@ def train_diffusion_model(config, train_dataloader, save_model_path, root_path, 
                     # Log metrics
                     logging.info(f"\nEpoch/Iteration {epoch}/{n_iter} \t Batch {batch_idx} \t Loss: {loss.item():.6f}")
                     logging.info(f"\t\t SSIM: {ssim_metric.item():.4f} \t MSE: {mse_metric.item():.6f} \t FID: {fid_score:.2f} \t Pixel range: [{x_hat_min:.2f}, {x_hat_max:.2f}]")
-                    writer.add_scalar("Loss/train", loss.item(), n_iter)
-                    writer.add_scalar("SSIM/train", ssim_metric.item(), n_iter)
-                    writer.add_scalar("MSE/train", mse_metric.item(), n_iter)
-                    writer.add_scalar("FID/train", fid_score, n_iter)
+
                     
                     # Send message
                     message = (
@@ -285,9 +280,7 @@ def train_diffusion_model(config, train_dataloader, save_model_path, root_path, 
                         save_images([real_images, ema_fake_images, ema_diff], f"{train_imgs_path}/train_epoch{epoch}_iteration{n_iter}_batch{batch_idx}_ema.jpg",  f"Epoch {epoch} - Iteration {n_iter} - Batch {batch_idx} - Timesteps {timesteps}", ema_image_titles)
         
                         logging.info(f"\t\t SSIM: {ema_ssim_metric.item():.4f} \t MSE: {ema_mse_metric.item():.6f} \t FID: {ema_fid_score:.2f}\t Pixel range: [{ema_x_hat_min:.2f}, {ema_x_hat_max:.2f}]")
-                        writer.add_scalar("EMA_SSIM/train", ema_ssim_metric.item(), n_iter)
-                        writer.add_scalar("EMA_MSE/train", ema_mse_metric.item(), n_iter)
-                        writer.add_scalar("EMA_FID/train", ema_fid_score, n_iter)
+
                         
                         message += (
                             f"\n\n<b>EMA Epoch/Iteration {epoch}/{n_iter}</b> --> [{ema_x_hat_min:.2f}, {ema_x_hat_max:.2f}] \n"
@@ -321,6 +314,8 @@ def train_diffusion_model(config, train_dataloader, save_model_path, root_path, 
             epoch_loss /= len(train_dataloader)
                             
     except (KeyboardInterrupt, SystemExit, Exception) as e:
+        if isinstance(e, Exception):
+            print(f"Exception: {e}")
         print("\nTraining interrupted. Saving final state...")
         save_model(ddpm.model, ddpm.optimizer, epoch, n_iter, loss, save_model_path, name="last_model")
         if use_ema: save_ema_model(ddpm.ema_model, epoch, n_iter, save_model_path, name="last_ema_model")
@@ -328,6 +323,5 @@ def train_diffusion_model(config, train_dataloader, save_model_path, root_path, 
     finally:
         print(f"Training completed in {time.strftime('%H:%M:%S', time.gmtime(time.time() - start_time))}")
         logging.info(f"Training completed in {time.strftime('%H:%M:%S', time.gmtime(time.time() - start_time))}")
-        writer.close()
         del ddpm
         torch.cuda.empty_cache()
