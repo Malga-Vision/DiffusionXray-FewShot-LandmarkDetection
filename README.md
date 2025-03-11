@@ -71,21 +71,20 @@ In particular, it is possible to download:
 
 Accepted at WACV (Winter Conference on Applications of Computer Vision) 2025.
 
-### ArXiv Bibtex
-
+### Bibtex
 ```
-@article{DiVia2024,
-  author = {Di Via, R. and Odone, F. and Pastore, V. P.},
-  title = {Self-supervised pre-training with diffusion model for few-shot landmark detection in x-ray images},
-  year = {2024},
-  journal = {arXiv},
-  volume = {2407.18125},
-  url = {https://arxiv.org/abs/2407.18125},
+@InProceedings{Di_Via_2025_WACV,
+    author    = {Di Via, Roberto and Odone, Francesca and Pastore, Vito Paolo},
+    title     = {Self-Supervised Pre-Training with Diffusion Model for Few-Shot Landmark Detection in X-Ray Images},
+    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {February},
+    year      = {2025},
+    pages     = {3886-3896}
 }
 ```
 
-### ArXiv APA
+### APA
 
 ```
-Di Via, R., Odone, F., & Pastore, V. P. (2024). Self-supervised pre-training with diffusion model for few-shot landmark detection in x-ray images. ArXiv. https://arxiv.org/abs/2407.18125
+Di Via, R., Odone, F., & Pastore, V. P. (2025). Self-supervised pre-training with diffusion model for few-shot landmark detection in x-ray images. IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) 2025. https://openaccess.thecvf.com/content/WACV2025/papers/Di_Via_Self-Supervised_Pre-Training_with_Diffusion_Model_for_Few-Shot_Landmark_Detection_in_WACV_2025_paper.pdf
 ```
