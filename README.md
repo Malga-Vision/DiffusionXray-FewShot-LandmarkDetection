@@ -66,27 +66,25 @@ In particular, it is possible to download:
 - SimClrV2 densenet161 model at 10k iterations for the Chest, Cephalometric, and Hand dataset
 - Dino densenet161 model at 10k iterations for the Chest, Cephalometric, and Hand dataset
 
+## Citation
 
-# Citation
+Accepted at WACV (Winter Conference on Applications of Computer Vision) 2025. If you use this code or findings in your research, please cite:
 
-Accepted at WACV (Winter Conference on Applications of Computer Vision) 2025.
-
-If you use this code or findings in your research, please cite:
-
-### Bibtex
-```
+```bibtex
 @InProceedings{Di_Via_2025_WACV,
-    author    = {Di Via, Roberto and Odone, Francesca and Pastore, Vito Paolo},
-    title     = {Self-Supervised Pre-Training with Diffusion Model for Few-Shot Landmark Detection in X-Ray Images},
-    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
-    month     = {February},
-    year      = {2025},
-    pages     = {3886-3896}
+  author    = {Di Via, Roberto and Odone, Francesca and Pastore, Vito Paolo},
+  title     = {Self-Supervised Pre-Training with Diffusion Model for Few-Shot Landmark Detection in X-Ray Images},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  publisher = {IEEE},
+  month     = {February},
+  year      = {2025},
+  pages     = {3886--3896},
+  doi       = {10.1109/WACV61041.2025.00382}
 }
 ```
 
-### APA
+APA:
 
 ```
-Di Via, R., Odone, F., & Pastore, V. P. (2025). Self-supervised pre-training with diffusion model for few-shot landmark detection in x-ray images. IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) 2025. https://openaccess.thecvf.com/content/WACV2025/papers/Di_Via_Self-Supervised_Pre-Training_with_Diffusion_Model_for_Few-Shot_Landmark_Detection_in_WACV_2025_paper.pdf
+Di Via, R., Odone, F., & Pastore, V. P. (2025). Self-supervised pre-training with diffusion model for few-shot landmark detection in x-ray images. In 2025 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) (pp. 3886-3896). IEEE. https://doi.org/10.1109/WACV61041.2025.00382
 ```
